@@ -3,9 +3,9 @@ from typing import Dict, Tuple
 
 class AuthInterface(ABC):
     @abstractmethod
-    def signup(self, data:Dict[str, str, str]) -> Tuple[bool, str, str]:
+    def signup(self, username: str, email: str, password: str) -> Tuple[bool, str, str]:
         pass
 
     @abstractmethod
-    def login(self, data: Dict[str, str]) -> Tuple[bool, str, str]:
+    def login(self,  email: str, password: str) -> Tuple[bool, str, str]:
         pass

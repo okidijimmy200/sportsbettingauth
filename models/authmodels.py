@@ -7,14 +7,14 @@ from config import Base
 class UserModel(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(20), nullable=False)
+    username = Column(String(20), nullable=False)
     email = Column(String(50), unique=True)
     password = Column(String(3000), nullable=False)
 
     def __repr__(self):
-        return 'id: {}, name: {}, email: {}, password: {}'.format(
+        return 'id: {}, username: {}, email: {}, password: {}'.format(
             self.id, 
-            self.name,
+            self.username,
             self.email,
             self.password
             )
@@ -23,6 +23,6 @@ class UserModel(Base):
 '''schema for user model'''
 class UserSchema(Schema):
     id = fields.Int()
-    name = fields.Str()
+    username = fields.Str()
     email = fields.Str()
     password = fields.Str()
