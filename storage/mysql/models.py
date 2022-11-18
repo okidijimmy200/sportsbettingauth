@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, Float
 from sqlalchemy.types import Date
 from marshmallow import Schema, fields
-from config import Base
+from storage.mysql.config import Base
 
 '''models for users'''
 class UserModel(Base):
