@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nauth.proto\"B\n\rSignUpRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"C\n\x0eSignUpResponse\x12\x0f\n\x07\x62oolean\x18\x01 \x01(\x08\x12\x10\n\x08response\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x05\"/\n\x0cLoginRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"B\n\rLoginResponse\x12\x0f\n\x07\x62oolean\x18\x01 \x01(\x08\x12\x10\n\x08response\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x05\x32:\n\rSignUpService\x12)\n\x06signUp\x12\x0e.SignUpRequest\x1a\x0f.SignUpResponse26\n\x0cLoginService\x12&\n\x05login\x12\r.LoginRequest\x1a\x0e.LoginResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nauth.proto\"B\n\rSignUpRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"C\n\x0eSignUpResponse\x12\x0f\n\x07\x62oolean\x18\x01 \x01(\x08\x12\x10\n\x08response\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x05\"/\n\x0cLoginRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"B\n\rLoginResponse\x12\x0f\n\x07\x62oolean\x18\x01 \x01(\x08\x12\x10\n\x08response\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x05\"%\n\x14ValidateTokenRequest\x12\r\n\x05token\x18\x01 \x01(\t\"N\n\rTokenResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12\x10\n\x08username\x18\x04 \x01(\t2:\n\rSignUpService\x12)\n\x06signUp\x12\x0e.SignUpRequest\x1a\x0f.SignUpResponse26\n\x0cLoginService\x12&\n\x05login\x12\r.LoginRequest\x1a\x0e.LoginResponse2F\n\x0cTokenService\x12\x36\n\rValidateToken\x12\x15.ValidateTokenRequest\x1a\x0e.TokenResponseb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'auth_pb2', globals())
@@ -28,8 +28,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _LOGINREQUEST._serialized_end=198
   _LOGINRESPONSE._serialized_start=200
   _LOGINRESPONSE._serialized_end=266
-  _SIGNUPSERVICE._serialized_start=268
-  _SIGNUPSERVICE._serialized_end=326
-  _LOGINSERVICE._serialized_start=328
-  _LOGINSERVICE._serialized_end=382
+  _VALIDATETOKENREQUEST._serialized_start=268
+  _VALIDATETOKENREQUEST._serialized_end=305
+  _TOKENRESPONSE._serialized_start=307
+  _TOKENRESPONSE._serialized_end=385
+  _SIGNUPSERVICE._serialized_start=387
+  _SIGNUPSERVICE._serialized_end=445
+  _LOGINSERVICE._serialized_start=447
+  _LOGINSERVICE._serialized_end=501
+  _TOKENSERVICE._serialized_start=503
+  _TOKENSERVICE._serialized_end=573
 # @@protoc_insertion_point(module_scope)

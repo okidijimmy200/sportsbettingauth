@@ -31,3 +31,18 @@ message LoginResponse {
     string response = 2;
     int32 status = 3;
 }
+
+service TokenService {
+    rpc ValidateToken (ValidateTokenRequest) returns (TokenResponse);
+}
+
+message ValidateTokenRequest {
+    string token = 1;
+}
+
+message TokenResponse {
+    int32 id = 1;
+    string email = 2;
+    string password = 3;
+    string username = 4;
+}

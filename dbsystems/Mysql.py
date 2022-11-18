@@ -1,6 +1,6 @@
 import os, jwt
 from models.authmodels import UserModel, UserSchema
-from authinterface import AuthInterface
+from authinterface import AuthInterface, TokenInterface
 from werkzeug.security import generate_password_hash, check_password_hash
 from typing import Dict, Tuple
 
@@ -37,15 +37,12 @@ class AuthUser(AuthInterface):
 
     def login(self, email, password) -> Tuple[bool, str, str]:
         try:
-            print(email, password)
             if email is None or password is None:
                 return False, "Please provide user details", 400
 
             schema = UserSchema()
             q = self.db.query(UserModel).filter(UserModel.email == email).first()
             user = schema.dump([q], many=True)
-
-            print(os.environ['SECRET_KEY'])
 
             if not user:
                 return False, 'Could not verify', 401  
@@ -64,3 +61,30 @@ class AuthUser(AuthInterface):
             print(result)
             reason = f'-Failed to Login into MYSQL DB'
             return False, reason, 500
+
+'''Token MYSQL Interface'''
+class MySQLTokenDecorator(TokenInterface):
+    def __init__(self, db) -> None:
+        self.db = db
+
+
+    def get_current_user(self, token):
+        try:
+            schema = UserSchema()
+            data=jwt.decode(token, os.environ['SECRET_KEY'], algorithms=["HS256"])
+            current_user = self.db.query(UserModel).filter(UserModel.id==data['id']).first()
+            if current_user is None:
+                return {
+                "message": "Invalid Authentication token!",
+                "data": None,
+                "error": "Unauthorized"
+            }, 401
+        except Exception as e:
+                return {
+                    "message": "Something went wrong",
+                    "data": None,
+                    "error": str(e)
+                }, 500
+        result = schema.dump([current_user], many=True)
+        return result
+        # return f(result, *args, **kwargs)
