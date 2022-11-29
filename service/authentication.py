@@ -24,36 +24,39 @@ class Authentication(AuthenticationInterface):
                 return LoginResponse(400, reason)
 
             code, reason, user = self.storage.find_user(req.email)
-            if code != 200 or code != 201:
-                return LoginResponse(code, reason)
-
+            if code != 200 and code != 201:
+                return LoginResponse(code, reason, token=None)
+            token = jwt.encode({"id": user.id, "email": user.email}, os.environ["SECRET_KEY"], algorithm="HS256")
             if check_password_hash(user.password, req.password):
+                print('if statement test')
                 return LoginResponse(
                     200,
                     "",
-                    jwt.encode(
-                        {"id": user.id},
-                        os.environ["SECRET_KEY"],
-                        algorithm="HS256",
-                    ),
-                )
+                    token)
             else:
                 return LoginResponse(401, "invalid password")
         except Exception as e:
-            return LoginResponse(code=500, reason=f"failed to log in: " + f"{type(e).__name__} {str(e)}")
+            # return LoginResponse(code=500, reason=f"failed to log in: " + f"{type(e).__name__} {str(e)}")
+            result = (
+                f"failed to log in, reason: "
+                + f"{type(e).__name__} {str(e)}"
+            )
+            print(result)
+            return result
 
     def validate_token(self, req: ValidateTokenRequest) -> ValidateTokenResponse:
         try:
             valid, reason = validate_request(req)
             if not valid:
-                return LoginResponse(400, reason)
+                return LoginResponse(400, reason, token=None)
 
             data: Dict[str, int] = jwt.decode(req.token, os.environ['SECRET_KEY'], algorithms=["HS256"])
             # TODO: check if token is expired etc.
 
-            code, reason, user = self.storage.find_user(data['id'])
+            code, reason, user = self.storage.find_user(data['email'])
+   
             if code != 200:
-                return ValidateTokenResponse(code, reason)
+                return ValidateTokenResponse(code, reason, user_id=None)
             
             return ValidateTokenResponse(200, "", user.id)
         except Exception as e:

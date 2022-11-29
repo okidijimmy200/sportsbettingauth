@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nauth.proto\"B\n\rSignUpRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\".\n\x0eSignUpResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0e\n\x06reason\x18\x02 \x01(\t\"/\n\x0cLoginRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\rLoginResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0e\n\x06reason\x18\x02 \x01(\t\"%\n\x14ValidateTokenRequest\x12\r\n\x05token\x18\x01 \x01(\t\"F\n\x15ValidateTokenResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0e\n\x06reason\x18\x02 \x01(\t\x12\x0f\n\x07user_id\x18\x03 \x01(\t2\xab\x01\n\x16UserManagenmentService\x12)\n\x06SignUp\x12\x0e.SignUpRequest\x1a\x0f.SignUpResponse\x12&\n\x05Login\x12\r.LoginRequest\x1a\x0e.LoginResponse\x12>\n\rValidateToken\x12\x15.ValidateTokenRequest\x1a\x16.ValidateTokenResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nauth.proto\"B\n\rSignUpRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\".\n\x0eSignUpResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0e\n\x06reason\x18\x02 \x01(\t\"/\n\x0cLoginRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"<\n\rLoginResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0e\n\x06reason\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\t\"%\n\x14ValidateTokenRequest\x12\r\n\x05token\x18\x01 \x01(\t\"F\n\x15ValidateTokenResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0e\n\x06reason\x18\x02 \x01(\t\x12\x0f\n\x07user_id\x18\x03 \x01(\x05\x32\xab\x01\n\x16UserManagenmentService\x12)\n\x06SignUp\x12\x0e.SignUpRequest\x1a\x0f.SignUpResponse\x12&\n\x05Login\x12\r.LoginRequest\x1a\x0e.LoginResponse\x12>\n\rValidateToken\x12\x15.ValidateTokenRequest\x1a\x16.ValidateTokenResponseb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'auth_pb2', globals())
@@ -27,11 +27,11 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _LOGINREQUEST._serialized_start=130
   _LOGINREQUEST._serialized_end=177
   _LOGINRESPONSE._serialized_start=179
-  _LOGINRESPONSE._serialized_end=224
-  _VALIDATETOKENREQUEST._serialized_start=226
-  _VALIDATETOKENREQUEST._serialized_end=263
-  _VALIDATETOKENRESPONSE._serialized_start=265
-  _VALIDATETOKENRESPONSE._serialized_end=335
-  _USERMANAGENMENTSERVICE._serialized_start=338
-  _USERMANAGENMENTSERVICE._serialized_end=509
+  _LOGINRESPONSE._serialized_end=239
+  _VALIDATETOKENREQUEST._serialized_start=241
+  _VALIDATETOKENREQUEST._serialized_end=278
+  _VALIDATETOKENRESPONSE._serialized_start=280
+  _VALIDATETOKENRESPONSE._serialized_end=350
+  _USERMANAGENMENTSERVICE._serialized_start=353
+  _USERMANAGENMENTSERVICE._serialized_end=524
 # @@protoc_insertion_point(module_scope)

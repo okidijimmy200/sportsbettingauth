@@ -34,7 +34,7 @@ class UserManagementService(auth_pb2_grpc.UserManagenmentServiceServicer):
         response = self.authentication_service.login(
             LoginRequest(request.email, request.password)
         )
-        return auth_pb2.LoginResponse(code=response.code, reason=response.reason)
+        return auth_pb2.LoginResponse(code=response.code, reason=response.reason, token=response.token)
 
     def ValidateToken(self, request, context):
         response = self.authentication_service.validate_token(
@@ -50,7 +50,7 @@ def run(
     registration_service: RegistrationInterface,
 ):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    auth_pb2_grpc.add_UserManagementServiceServicer_to_server(
+    auth_pb2_grpc.add_UserManagenmentServiceServicer_to_server(
         UserManagementService(authentication_service, registration_service), server
     )
     print("server started")

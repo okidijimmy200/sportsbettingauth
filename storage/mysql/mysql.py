@@ -14,6 +14,7 @@ class MySQLStorage(StorageInterface):
     def find_user(self, email: str) -> Tuple[int, str, User]:
         try:
             user: UserModel = self.db.query(UserModel).filter(UserModel.email == email).first()
+            
             if user is None:
                 return 404, "user not found", None
             return 200, "", User(user.id, user.username, user.email, user.password)
@@ -27,15 +28,14 @@ class MySQLStorage(StorageInterface):
 
     def create_user(self, user: User) -> Tuple[int, str]:
         try:
-            user = self.db.query(UserModel).filter(UserModel.email == user.email).first()
-
-            if not user:
-                user = UserModel(
+            _user = self.db.query(UserModel).filter(UserModel.email == user.email).first()
+            if not _user:
+                _user = UserModel(
                     username=user.username,
                     email=user.email,
                     password=user.password # this is hashed in the service layer a.k.a business logc
                 )
-                self.db.add(user)
+                self.db.add(_user)
                 self.db.commit()
             else:
                 return 403, "user already exists"
