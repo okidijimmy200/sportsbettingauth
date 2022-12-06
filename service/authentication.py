@@ -1,7 +1,7 @@
 import os, jwt
 from typing import Dict
 from service.interfaces import AuthenticationInterface, StorageInterface
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 from models.models import (
     LoginRequest,
     ValidateTokenRequest,
@@ -21,28 +21,28 @@ class Authentication(AuthenticationInterface):
         try:
             valid, reason = validate_request(req)
             if not valid:
-                return LoginResponse(400, reason)
+                return LoginResponse(400, reason, token=None)
 
             code, reason, user = self.storage.find_user(req.email)
             if code != 200 and code != 201:
                 return LoginResponse(code, reason, token=None)
             token = jwt.encode({"id": user.id, "email": user.email}, os.environ["SECRET_KEY"], algorithm="HS256")
+            print(req.password, user.password)
             if check_password_hash(user.password, req.password):
-                print('if statement test')
                 return LoginResponse(
-                    200,
-                    "",
-                    token)
+                    code=200,
+                    reason="",
+                    token=token)
             else:
-                return LoginResponse(401, "invalid password")
+                return LoginResponse(401, "invalid password", token=None)
         except Exception as e:
-            # return LoginResponse(code=500, reason=f"failed to log in: " + f"{type(e).__name__} {str(e)}")
-            result = (
-                f"failed to log in, reason: "
-                + f"{type(e).__name__} {str(e)}"
-            )
-            print(result)
-            return result
+            return LoginResponse(code=500, reason=f"failed to log in: " + f"{type(e).__name__} {str(e)}", token=None)
+            # result = (
+            #     f"failed to log in, reason: "
+            #     + f"{type(e).__name__} {str(e)}"
+            # )
+            # print(result)
+            # return result
 
     def validate_token(self, req: ValidateTokenRequest) -> ValidateTokenResponse:
         try:
