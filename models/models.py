@@ -76,9 +76,9 @@ class ValidateTokenRequest:
 class ValidateTokenResponse:
     code: int
     reason: str
-    user_id: int
+    user_id: str
 
-    def __init__(self, code: int, reason: str, user_id: int):
+    def __init__(self, code: int, reason: str, user_id: str):
         self.code = code
         self.reason = reason
         self.user_id = user_id

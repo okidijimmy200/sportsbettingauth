@@ -14,6 +14,7 @@ class Helpers:
         client = Registration(storage=storage)
         return client
         
+
 @pytest.fixture
 def helpers():
     return Helpers

@@ -1,7 +1,7 @@
 from typing import Tuple
 from sqlalchemy.orm import sessionmaker
 from service.interfaces import StorageInterface
-from storage.mysql.models import UserModel, UserSchema
+from storage.mysql.models import UserModel
 from models.models import User
 
 

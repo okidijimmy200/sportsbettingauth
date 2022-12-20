@@ -27,7 +27,6 @@ class Authentication(AuthenticationInterface):
             if code != 200 and code != 201:
                 return LoginResponse(code, reason, token=None)
             token = jwt.encode({"id": user.id, "email": user.email}, os.environ["SECRET_KEY"], algorithm="HS256")
-            print(req.password, user.password)
             if check_password_hash(user.password, req.password):
                 return LoginResponse(
                     code=200,
@@ -52,11 +51,14 @@ class Authentication(AuthenticationInterface):
 
             data: Dict[str, int] = jwt.decode(req.token, os.environ['SECRET_KEY'], algorithms=["HS256"])
             # TODO: check if token is expired etc.
-
             code, reason, user = self.storage.find_user(data['email'])
    
             if code != 200:
                 return ValidateTokenResponse(code, reason, user_id=None)
+                
+            if type(user.id) is int:
+                userID = str(user.id)
+                return ValidateTokenResponse(200, "", userID)
             
             return ValidateTokenResponse(200, "", user.id)
         except Exception as e:
