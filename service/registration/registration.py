@@ -13,6 +13,7 @@ class Registration:
         self.storage = storage
 
     def signup(self, req: SignUpRequest) -> SignUpResponse:
+        print('test')
         try:
             valid, reason = validate_request(req)
             if not valid:

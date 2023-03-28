@@ -35,3 +35,4 @@ class StorageInterface(ABC):
     @abstractmethod
     def create_user(self, user: User) -> Tuple[int, str]:
         pass
+

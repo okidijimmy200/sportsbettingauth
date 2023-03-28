@@ -3,3 +3,8 @@ marshmallow==3.19.0
 SQLAlchemy==1.4.44
 pymongo==4.3.2
 grpcio-tools~=1.30
+pytest-cov==4.0.0
+pytest
+PyJWT
+mysqlclient
+

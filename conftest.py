@@ -1,7 +1,7 @@
 import pytest
 from unittest import mock
-from service.authentication import Authentication
-from service.registration import Registration
+from service.auth.authentication import Authentication
+from service.registration.registration import Registration
 
 class Helpers:
     @staticmethod

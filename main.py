@@ -1,7 +1,7 @@
 import os
 from server.grpc.grpc import run
-from service.authentication import Authentication
-from service.registration import Registration
+from service.auth.authentication import Authentication
+from service.registration.registration import Registration
 from pymongo import MongoClient
 from storage.mongodb.Mongodb import MongoStorage
 from storage.mysql.functions import auto_create, get_instance

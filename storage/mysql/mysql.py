@@ -28,6 +28,7 @@ class MySQLStorage(StorageInterface):
 
     def create_user(self, user: User) -> Tuple[int, str]:
         try:
+            print('test storage')
             _user = self.db.query(UserModel).filter(UserModel.email == user.email).first()
             if not _user:
                 _user = UserModel(

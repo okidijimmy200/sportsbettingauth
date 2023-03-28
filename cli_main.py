@@ -1,6 +1,6 @@
 from models.models import SignUpRequest
 from storage.mysql.mysql import MySQLStorage
-from service.registration import Registration
+from service.registration.registration import Registration
 from storage.mysql.functions import auto_create, get_instance
 
 def getUserFromCLI() -> SignUpRequest:

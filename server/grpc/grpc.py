@@ -40,9 +40,7 @@ class UserManagementService(auth_pb2_grpc.UserManagenmentServiceServicer):
         response = self.authentication_service.validate_token(
             ValidateTokenRequest(request.token)
         )
-        return auth_pb2.ValidateTokenResponse(
-            code=response.code, reason=response.reason, user_id=response.user_id
-        )
+        return auth_pb2.ValidateTokenResponse(code=response.code, reason=response.reason, user_id=response.user_id)
 
 
 def run(

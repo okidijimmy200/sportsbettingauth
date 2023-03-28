@@ -1,0 +1,120 @@
+import pytest
+from unittest import mock
+from server.grpc.grpc import UserManagementService
+
+class MockRequest(object):
+    username = 'jimmyjones' 
+    email = 'okidijimmie@gmail.com'
+    password = 'test123'
+
+class MockReuestLogin(object):
+    email = 'okidijimmie@gmail.com'
+    password = 'test123'
+
+class MockRequestToken(object):
+    token = 'weroet2134fer43f434e43'
+
+class MockResponseToken(object):
+    code = 200
+    reason = 'valid token'
+    user_id = '1'
+
+class MockResponseInvalidToken(object):
+    code = 500
+    reason = 'invalid token'
+    user_id = None
+
+class MockResponseLogin(object):
+    code = 200
+    reason = 'logged in successfully'
+    token = 'weroet2134fer43f434e43'
+
+class MockResponseLoginFail(object):
+    code = 500
+    reason = 'Failed to login'
+    token = ''
+
+class MockResponse(object):
+    code = 201
+    reason = 'successful'
+
+class MockResponseFail(object):
+    code = 500
+    reason = 'failed to log'
+
+@mock.patch('service.registration.Registration')
+@mock.patch('service.authentication.Authentication')
+def test_usermanagement_service_signup(registration_service, authentication_service):
+    test_cases = [
+        {
+            "name": "pass",
+            "input": MockRequest,
+            "output": MockResponse,
+            "code": 201,
+            "reason": "successfully signed up"
+        },
+        {
+            "name": "fail",
+            "input": MockRequest,
+            "output": MockResponseFail,
+            "code": 500,
+            "reason": "failed to signup"
+        }
+    ]
+    # instantiate UserManagment Class
+    for test_case in test_cases:
+        user_management = UserManagementService(authentication_service, registration_service)
+        user_management.registration_service.signup.return_value = test_case['output']
+        result = user_management.SignUp(request=MockRequest)
+        assert result.code == test_case['code']
+
+
+@mock.patch('service.registration.Registration')
+@mock.patch('service.authentication.Authentication')
+def test_usermanagement_service_login(registration_service, authentication_service):
+    test_cases = [
+        {
+            "name": "pass",
+            "input": MockReuestLogin,
+            "output": MockResponseLogin,
+            "code": 200,
+            "reason": "successfully signed up"
+        },
+        {
+            "name": "fail",
+            "input": MockReuestLogin,
+            "output": MockResponseLoginFail,
+            "code": 500,
+            "reason": "failed to login"
+        }
+    ]
+    for test_case in test_cases:
+        user_management = UserManagementService(authentication_service, registration_service)
+        user_management.authentication_service.login.return_value = test_case['output']
+        result = user_management.Login(request=test_case['input'])
+        assert result.code == test_case['code']
+
+@mock.patch('service.registration.Registration')
+@mock.patch('service.authentication.Authentication')
+def test_usermangement_validate_token(registration_service, authentication_service):
+    test_cases = [
+        {
+            "name": "pass",
+            "input": MockRequestToken,
+            "output": MockResponseToken,
+            "code": 200,
+            "reason": "valid token"
+        },
+        {
+            "name": "fail",
+            "input": MockRequestToken,
+            "output": MockResponseInvalidToken,
+            "code": 500,
+            "reason": "invalid token"
+        }
+    ]
+    for test_case in test_cases:
+        user_management = UserManagementService(authentication_service, registration_service)
+        user_management.authentication_service.validate_token.return_value = test_case['output']
+        result = user_management.ValidateToken(request=test_case['input'])
+        assert result.code == test_case['code']

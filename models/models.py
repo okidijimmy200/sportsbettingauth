@@ -1,7 +1,6 @@
 # service models
 from typing import Tuple
 
-
 class User:
     id: int
     username: str
