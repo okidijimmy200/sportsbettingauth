@@ -1,4 +1,4 @@
-import os, jwt
+import os, jwt, logger
 from typing import Dict
 from service.interfaces import AuthenticationInterface, StorageInterface
 from werkzeug.security import check_password_hash
@@ -16,6 +16,7 @@ class Authentication(AuthenticationInterface):
 
     def __init__(self, storage: StorageInterface) -> None:
         self.storage = storage
+        self.logging = logger.setup_logger("my_logger", log_file="app.log")
 
     def login(self, req: LoginRequest) -> LoginResponse:
         try:
@@ -35,13 +36,9 @@ class Authentication(AuthenticationInterface):
             else:
                 return LoginResponse(401, "invalid password", token=None)
         except Exception as e:
-            return LoginResponse(code=500, reason=f"failed to log in: " + f"{type(e).__name__} {str(e)}", token=None)
-            # result = (
-            #     f"failed to log in, reason: "
-            #     + f"{type(e).__name__} {str(e)}"
-            # )
-            # print(result)
-            # return result
+            self.logging.exception(f"Failed to login user: " + f"{type(e).__name__} {str(e)}")
+            return LoginResponse(code=500, reason=f"Internal Server Error", token=None)
+        
 
     def validate_token(self, req: ValidateTokenRequest) -> ValidateTokenResponse:
         try:
@@ -62,7 +59,8 @@ class Authentication(AuthenticationInterface):
             
             return ValidateTokenResponse(200, "", user.id)
         except Exception as e:
-            return ValidateTokenResponse(code=500, reason=f"failed to validate token: " + f"{type(e).__name__} {str(e)}")
+            self.logging.exception(f"failed to validate token: " + f"{type(e).__name__} {str(e)}")
+            return ValidateTokenResponse(code=500, reason="Internal Server Error")
 
 
 # SOLID
